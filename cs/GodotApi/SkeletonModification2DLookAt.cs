@@ -1,0 +1,1064 @@
+using System;
+
+namespace GodotWeb
+{
+    public class SkeletonModification2DLookAt : GodotObject
+    {
+        public SkeletonModification2DLookAt(ulong id) : base(id) { }
+
+        public void set_bone2d_node(string bone2d_nodepath)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteNodePath(Commands.CMD_DATA + 8, bone2d_nodepath);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_bone2d_node__22__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public string get_bone2d_node()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_bone2d_node__r22);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadNodePath(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_bone_index(long bone_idx)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt64(Commands.CMD_DATA + 8, bone_idx);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_bone_index__2__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public long get_bone_index()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_bone_index__r2);
+            Helpers.WaitForCompletion();
+            long result = Helpers.ReadInt64(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_target_node(string target_nodepath)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteNodePath(Commands.CMD_DATA + 8, target_nodepath);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_target_node__22__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public string get_target_node()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_target_node__r22);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadNodePath(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_additional_rotation(double rotation)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteDouble(Commands.CMD_DATA + 8, rotation);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_additional_rotation__3__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public double get_additional_rotation()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_additional_rotation__r3);
+            Helpers.WaitForCompletion();
+            double result = Helpers.ReadDouble(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_enable_constraint(bool enable_constraint)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt32(Commands.CMD_DATA + 8, enable_constraint ? 1 : 0);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_enable_constraint__1__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool get_enable_constraint()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_enable_constraint__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void set_constraint_angle_min(double angle_min)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteDouble(Commands.CMD_DATA + 8, angle_min);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_constraint_angle_min__3__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public double get_constraint_angle_min()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_constraint_angle_min__r3);
+            Helpers.WaitForCompletion();
+            double result = Helpers.ReadDouble(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_constraint_angle_max(double angle_max)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteDouble(Commands.CMD_DATA + 8, angle_max);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_constraint_angle_max__3__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public double get_constraint_angle_max()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_constraint_angle_max__r3);
+            Helpers.WaitForCompletion();
+            double result = Helpers.ReadDouble(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_constraint_angle_invert(bool invert)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt32(Commands.CMD_DATA + 8, invert ? 1 : 0);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_constraint_angle_invert__1__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool get_constraint_angle_invert()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_constraint_angle_invert__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void _execute(double delta)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteDouble(Commands.CMD_DATA + 8, delta);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__execute__3__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void _setup_modification(ulong modification_stack)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteUInt64(Commands.CMD_DATA + 8, modification_stack);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__setup_modification__24__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void _draw_editor_gizmo()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__draw_editor_gizmo__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void set_enabled(bool enabled)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt32(Commands.CMD_DATA + 8, enabled ? 1 : 0);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_enabled__1__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool get_enabled()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_enabled__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public ulong get_modification_stack()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_modification_stack__r24);
+            Helpers.WaitForCompletion();
+            ulong result = Helpers.ReadUInt64(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_is_setup(bool is_setup)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt32(Commands.CMD_DATA + 8, is_setup ? 1 : 0);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_is_setup__1__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool get_is_setup()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_is_setup__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void set_execution_mode(long execution_mode)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt64(Commands.CMD_DATA + 8, execution_mode);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_execution_mode__2__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public long get_execution_mode()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_execution_mode__r2);
+            Helpers.WaitForCompletion();
+            long result = Helpers.ReadInt64(Commands.CMD_DATA);
+            return result;
+        }
+
+        public double clamp_angle(double angle, double min, double max, bool invert)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteDouble(Commands.CMD_DATA + 8, angle);
+            Helpers.WriteDouble(Commands.CMD_DATA + 16, min);
+            Helpers.WriteDouble(Commands.CMD_DATA + 24, max);
+            Helpers.WriteInt32(Commands.CMD_DATA + 32, invert ? 1 : 0);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_clamp_angle__3__3__3__1__r3);
+            Helpers.WaitForCompletion();
+            double result = Helpers.ReadDouble(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_editor_draw_gizmo(bool draw_gizmo)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt32(Commands.CMD_DATA + 8, draw_gizmo ? 1 : 0);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_editor_draw_gizmo__1__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool get_editor_draw_gizmo()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_editor_draw_gizmo__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void _setup_local_to_scene()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__setup_local_to_scene__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public ulong _get_rid()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__get_rid__r23);
+            Helpers.WaitForCompletion();
+            ulong result = Helpers.ReadRID(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void _reset_state()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__reset_state__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void _set_path_cache(string path)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteString(Commands.CMD_DATA + 8, path);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__set_path_cache__4__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void set_path(string path)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteString(Commands.CMD_DATA + 8, path);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_path__4__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void take_over_path(string path)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteString(Commands.CMD_DATA + 8, path);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_take_over_path__4__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public string get_path()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_path__r4);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadString(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_path_cache(string path)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteString(Commands.CMD_DATA + 8, path);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_path_cache__4__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void set_name(string name)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteString(Commands.CMD_DATA + 8, name);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_name__4__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public string get_name()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_name__r4);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadString(Commands.CMD_DATA);
+            return result;
+        }
+
+        public ulong get_rid()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_rid__r23);
+            Helpers.WaitForCompletion();
+            ulong result = Helpers.ReadRID(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_local_to_scene(bool enable)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt32(Commands.CMD_DATA + 8, enable ? 1 : 0);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_local_to_scene__1__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool is_local_to_scene()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_is_local_to_scene__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public ulong get_local_scene()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_local_scene__r24);
+            Helpers.WaitForCompletion();
+            ulong result = Helpers.ReadUInt64(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void setup_local_to_scene()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_setup_local_to_scene__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void reset_state()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_reset_state__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void set_id_for_path(string path, string id)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteString(Commands.CMD_DATA + 8, path);
+            Helpers.WriteString(Commands.CMD_DATA + 1036, id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_id_for_path__4__4__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public string get_id_for_path(string path)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteString(Commands.CMD_DATA + 8, path);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_id_for_path__4__r4);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadString(Commands.CMD_DATA);
+            return result;
+        }
+
+        public bool is_built_in()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_is_built_in__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public string generate_scene_unique_id()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_generate_scene_unique_id__r4);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadString(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_scene_unique_id(string id)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteString(Commands.CMD_DATA + 8, id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_scene_unique_id__4__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public string get_scene_unique_id()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_scene_unique_id__r4);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadString(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void emit_changed()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_emit_changed__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public ulong duplicate(bool deep)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt32(Commands.CMD_DATA + 8, deep ? 1 : 0);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_duplicate__1__r24);
+            Helpers.WaitForCompletion();
+            ulong result = Helpers.ReadUInt64(Commands.CMD_DATA);
+            return result;
+        }
+
+        public ulong duplicate_deep(long deep_subresources_mode)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt64(Commands.CMD_DATA + 8, deep_subresources_mode);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_duplicate_deep__2__r24);
+            Helpers.WaitForCompletion();
+            ulong result = Helpers.ReadUInt64(Commands.CMD_DATA);
+            return result;
+        }
+
+        public bool init_ref()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_init_ref__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public bool reference()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_reference__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public bool unreference()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_unreference__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public long get_reference_count()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_reference_count__r2);
+            Helpers.WaitForCompletion();
+            long result = Helpers.ReadInt64(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void free()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_free__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void _init()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__init__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public string _to_string()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__to_string__r4);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadString(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void _notification(long what)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt64(Commands.CMD_DATA + 8, what);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__notification__2__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool _set(string property, object value)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, property);
+            Helpers.WriteVariant(Commands.CMD_DATA + 1036, value);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__set__21__0__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void _get(string property)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, property);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__get__21__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public object _get_property_list()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__get_property_list__r28);
+            Helpers.WaitForCompletion();
+            object result = Helpers.ReadArray(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void _validate_property(object property)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteDictionary(Commands.CMD_DATA + 8, property);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__validate_property__27__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool _property_can_revert(string property)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, property);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__property_can_revert__21__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void _property_get_revert(string property)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, property);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__property_get_revert__21__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool _iter_init(object iter)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteArray(Commands.CMD_DATA + 8, iter);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__iter_init__28__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public bool _iter_next(object iter)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteArray(Commands.CMD_DATA + 8, iter);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__iter_next__28__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void _iter_get(object iter)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteVariant(Commands.CMD_DATA + 8, iter);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt__iter_get__0__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public string get_class()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_class__r4);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadString(Commands.CMD_DATA);
+            return result;
+        }
+
+        public bool is_class(string class_)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteString(Commands.CMD_DATA + 8, class_);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_is_class__4__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void set(string property, object value)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, property);
+            Helpers.WriteVariant(Commands.CMD_DATA + 1036, value);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set__21__0__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void get(string property)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, property);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get__21__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void set_indexed(string property_path, object value)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteNodePath(Commands.CMD_DATA + 8, property_path);
+            Helpers.WriteVariant(Commands.CMD_DATA + 1036, value);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_indexed__22__0__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void get_indexed(string property_path)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteNodePath(Commands.CMD_DATA + 8, property_path);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_indexed__22__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public object get_property_list()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_property_list__r28);
+            Helpers.WaitForCompletion();
+            object result = Helpers.ReadArray(Commands.CMD_DATA);
+            return result;
+        }
+
+        public object get_method_list()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_method_list__r28);
+            Helpers.WaitForCompletion();
+            object result = Helpers.ReadArray(Commands.CMD_DATA);
+            return result;
+        }
+
+        public bool property_can_revert(string property)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, property);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_property_can_revert__21__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void property_get_revert(string property)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, property);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_property_get_revert__21__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void notification(long what, bool reversed)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt64(Commands.CMD_DATA + 8, what);
+            Helpers.WriteInt32(Commands.CMD_DATA + 16, reversed ? 1 : 0);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_notification__2__1__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public string to_string()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_to_string__r4);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadString(Commands.CMD_DATA);
+            return result;
+        }
+
+        public ulong get_instance_id()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_instance_id__r24);
+            Helpers.WaitForCompletion();
+            ulong result = Helpers.ReadUInt64(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_script(object script)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteVariant(Commands.CMD_DATA + 8, script);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_script__0__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void get_script()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_script__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void set_meta(string name, object value)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, name);
+            Helpers.WriteVariant(Commands.CMD_DATA + 1036, value);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_meta__21__0__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void remove_meta(string name)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, name);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_remove_meta__21__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void get_meta(string name, object default_)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, name);
+            Helpers.WriteVariant(Commands.CMD_DATA + 1036, default_);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_meta__21__0__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool has_meta(string name)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, name);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_has_meta__21__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public object get_meta_list()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_meta_list__r28);
+            Helpers.WaitForCompletion();
+            object result = Helpers.ReadArray(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void add_user_signal(string signal, object arguments)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteString(Commands.CMD_DATA + 8, signal);
+            Helpers.WriteArray(Commands.CMD_DATA + 1036, arguments);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_add_user_signal__4__28__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool has_user_signal(string signal)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, signal);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_has_user_signal__21__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void remove_user_signal(string signal)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, signal);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_remove_user_signal__21__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public long emit_signal(string signal)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, signal);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_emit_signal__21__r2);
+            Helpers.WaitForCompletion();
+            long result = Helpers.ReadInt64(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void call(string method)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, method);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_call__21__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void call_deferred(string method)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, method);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_call_deferred__21__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void set_deferred(string property, object value)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, property);
+            Helpers.WriteVariant(Commands.CMD_DATA + 1036, value);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_deferred__21__0__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void callv(string method, object arg_array)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, method);
+            Helpers.WriteArray(Commands.CMD_DATA + 1036, arg_array);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_callv__21__28__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool has_method(string method)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, method);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_has_method__21__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public long get_method_argument_count(string method)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, method);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_method_argument_count__21__r2);
+            Helpers.WaitForCompletion();
+            long result = Helpers.ReadInt64(Commands.CMD_DATA);
+            return result;
+        }
+
+        public bool has_signal(string signal)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, signal);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_has_signal__21__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public object get_signal_list()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_signal_list__r28);
+            Helpers.WaitForCompletion();
+            object result = Helpers.ReadArray(Commands.CMD_DATA);
+            return result;
+        }
+
+        public object get_signal_connection_list(string signal)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, signal);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_signal_connection_list__21__r28);
+            Helpers.WaitForCompletion();
+            object result = Helpers.ReadArray(Commands.CMD_DATA);
+            return result;
+        }
+
+        public object get_incoming_connections()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_incoming_connections__r28);
+            Helpers.WaitForCompletion();
+            object result = Helpers.ReadArray(Commands.CMD_DATA);
+            return result;
+        }
+
+        public long connect(string signal, object callable, long flags)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, signal);
+            Helpers.WriteCallable(Commands.CMD_DATA + 1036, callable);
+            Helpers.WriteInt64(Commands.CMD_DATA + 1036, flags);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_connect__21__25__2__r2);
+            Helpers.WaitForCompletion();
+            long result = Helpers.ReadInt64(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void disconnect(string signal, object callable)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, signal);
+            Helpers.WriteCallable(Commands.CMD_DATA + 1036, callable);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_disconnect__21__25__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool is_connected(string signal, object callable)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, signal);
+            Helpers.WriteCallable(Commands.CMD_DATA + 1036, callable);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_is_connected__21__25__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public bool has_connections(string signal)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, signal);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_has_connections__21__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void set_block_signals(bool enable)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt32(Commands.CMD_DATA + 8, enable ? 1 : 0);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_block_signals__1__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool is_blocking_signals()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_is_blocking_signals__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void notify_property_list_changed()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_notify_property_list_changed__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public void set_message_translation(bool enable)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteInt32(Commands.CMD_DATA + 8, enable ? 1 : 0);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_message_translation__1__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool can_translate_messages()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_can_translate_messages__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public string tr(string message, string context)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, message);
+            Helpers.WriteStringName(Commands.CMD_DATA + 1036, context);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_tr__21__21__r4);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadString(Commands.CMD_DATA);
+            return result;
+        }
+
+        public string tr_n(string message, string plural_message, long n, string context)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, message);
+            Helpers.WriteStringName(Commands.CMD_DATA + 1036, plural_message);
+            Helpers.WriteInt64(Commands.CMD_DATA + 2064, n);
+            Helpers.WriteStringName(Commands.CMD_DATA + 2072, context);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_tr_n__21__21__2__21__r4);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadString(Commands.CMD_DATA);
+            return result;
+        }
+
+        public string get_translation_domain()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_get_translation_domain__r21);
+            Helpers.WaitForCompletion();
+            string result = Helpers.ReadStringName(Commands.CMD_DATA);
+            return result;
+        }
+
+        public void set_translation_domain(string domain)
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.WriteStringName(Commands.CMD_DATA + 8, domain);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_set_translation_domain__21__r0);
+            Helpers.WaitForCompletion();
+        }
+
+        public bool is_queued_for_deletion()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_is_queued_for_deletion__r1);
+            Helpers.WaitForCompletion();
+            bool result = Helpers.ReadInt32(Commands.CMD_DATA) != 0;
+            return result;
+        }
+
+        public void cancel_free()
+        {
+            Helpers.WriteUInt64(Commands.CMD_DATA, Id);
+            Helpers.SendCommand(Commands.CMD_SkeletonModification2DLookAt_cancel_free__r0);
+            Helpers.WaitForCompletion();
+        }
+
+    }
+}

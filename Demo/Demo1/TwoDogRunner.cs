@@ -49,7 +49,7 @@ public static class TwoDogRunner
         {
             tick++;
             label.set_text($"2dog running - tick - my ticks {tick}");
-            await Task.Delay(16);
+            //await Task.Delay(16);
         }
     }
      

@@ -5,31 +5,6 @@ using System.Threading;
 
 public static class Helpers
 {
-
-    // responsible for sending commands to the command offset
-    public static void SendCommand(int cmd)
-    {
-        Interop.AtomicWriteInt32(Commands.CMD_OFFSET, cmd);
-        Interop.AtomicWriteInt32(Commands.STATUS_OFFSET, Commands.STATUS_PENDING);
-    }
-    
-    // used to reset the command offset to 0 and status to 0 at the start of the program
-    public static void ResetCommandBuffer()
-    {
-        WriteByte(Commands.CMD_OFFSET, 0);
-        WriteByte(Commands.CMD_OFFSET + 1, 0);
-        WriteByte(Commands.STATUS_OFFSET, 0);
-    }
-    
-    // busy-wait loop
-    public static void WaitForCompletion()
-    {
-        while (Interop.AtomicReadInt32(Commands.STATUS_OFFSET) != Commands.STATUS_DONE)
-        {
-            Thread.SpinWait(1);
-        }
-    }
-    
     // Offsets are the addresses to which we push bytes or pull bytes out
     public static void WriteByte(int offset, byte value)
         => Interop.BulkWrite(new[] { value }, offset, 1);
@@ -90,7 +65,29 @@ public static class Helpers
         Interop.BulkWrite(bytes, offset + 4, bytes.Length);
     }
 
+    // responsible for sending commands to the command offset
+    public static void SendCommand(int cmd)
+    {
+        Interop.AtomicWriteInt32(Commands.CMD_OFFSET, cmd);
+        Interop.AtomicWriteInt32(Commands.STATUS_OFFSET, Commands.STATUS_PENDING);
+    }
 
+    // used to reset the command offset to 0 and status to 0 at the start of the program
+    public static void ResetCommandBuffer()
+    {
+        // resets the whole width to 0
+        WriteInt32(Commands.CMD_OFFSET, 0);
+        WriteByte(Commands.STATUS_OFFSET, 0);
+    }
+
+    // busy-wait loop
+    public static void WaitForCompletion()
+    {
+        while (Interop.AtomicReadInt32(Commands.STATUS_OFFSET) != Commands.STATUS_DONE)
+        {
+            Thread.SpinWait(1);
+        }
+    }
 
     // string helpers
     public static string ReadString(int offset)
@@ -111,7 +108,7 @@ public static class Helpers
     public static void WriteNodePath(int offset, string value) => WriteString(offset, value);
     public static string ReadNodePath(int offset) => ReadString(offset);
 
-    // double ops
+    // double helpers
     public static void WriteDouble(int offset, double value)
         => Interop.BulkWrite(BitConverter.GetBytes(value), offset, 8);
 
@@ -121,11 +118,11 @@ public static class Helpers
         return BitConverter.ToDouble(bytes, 0);
     }
 
-    // RID ops
+    // RID helpers
     public static void WriteRID(int offset, ulong value) => WriteUInt64(offset, value);
     public static ulong ReadRID(int offset) => ReadUInt64(offset);
 
-    // vector types ops
+    // Vector Types Helpers
     public static void WriteVector2(int offset, Vector2 value)
     {
         WriteFloat(offset, value.X);
@@ -216,7 +213,7 @@ public static class Helpers
         return new Vector4i(x, y, z, w);
     }
 
-    // color ops
+    // Color Helpers
     public static void WriteColor(int offset, Color value)
     {
         WriteFloat(offset, value.R);
@@ -234,7 +231,7 @@ public static class Helpers
         return new Color(r, g, b, a);
     }
 
-    // rect ops
+    // Rect Helpers
     public static void WriteRect2(int offset, Rect2 value)
     {
         WriteVector2(offset, value.Position);
@@ -261,7 +258,7 @@ public static class Helpers
         return new Rect2i(pos, size);
     }
 
-    // Transform2D ops
+    // Transform2D Helpers
     public static void WriteTransform2D(int offset, Transform2D value)
     {
         WriteVector2(offset, value.X);
@@ -277,7 +274,7 @@ public static class Helpers
         return new Transform2D(xAxis, yAxis, origin);
     }
 
-    // Transform3D ops
+    // Transform3D Helpers
     public static void WriteTransform3D(int offset, Transform3D value)
     {
         WriteBasis(offset, value.Basis);
@@ -291,7 +288,7 @@ public static class Helpers
         return new Transform3D(basis, origin);
     }
 
-    // basis ops
+    // Basis Helpers
     public static void WriteBasis(int offset, Basis value)
     {
         WriteVector3(offset, value.Column0);
@@ -307,7 +304,7 @@ public static class Helpers
         return new Basis(row0, row1, row2);
     }
 
-    // Quaternion ops
+    // Quaternion Helpers
     public static void WriteQuaternion(int offset, Quaternion value)
     {
         WriteFloat(offset, value.W);
@@ -325,7 +322,7 @@ public static class Helpers
         return new Quaternion(w, x, y, z);
     }
 
-    // AABB ops
+    // AABB Helpers
     public static void WriteAABB(int offset, AABB value)
     {
         WriteVector3(offset, value.Position);
@@ -339,7 +336,7 @@ public static class Helpers
         return new AABB(pos, size);
     }
 
-    // plane ops
+    // Plane Helpers
     public static void WritePlane(int offset, Plane value)
     {
         WriteFloat(offset, value.Normal.X);
@@ -357,7 +354,7 @@ public static class Helpers
         return new Plane(new Vector3(nx, ny, nz), d);
     }
 
-    // projection ops
+    // Projection Helpers
     public static void WriteProjection(int offset, Projection value)
     {
         WriteVector4(offset, value.X);
@@ -375,20 +372,81 @@ public static class Helpers
         return new Projection(x, y, z, w);
     }
 
-    // direct helpers for types that are not blob-based here
-    public static object ReadCallable(int offset) => null;
-    public static void WriteCallable(int offset, object value) { }
+    // Dictionary Helpers
+    public static object ReadDictionary(int offset)
+    {
+        int len = ReadInt32(offset);
+        if (len <= 0)
+            return new Dictionary<object, object>();
 
-    public static object ReadSignal(int offset) => null;
-    public static void WriteSignal(int offset, object value) { }
+        return VariantHandling.Decode(offset + 4);
+    }
 
-    public static object ReadDictionary(int offset) => null;
-    public static void WriteDictionary(int offset, object value) { }
+    public static void WriteDictionary(int offset, System.Collections.IDictionary value)
+    {
+        value ??= new Dictionary<object, object>();
+        int len = VariantHandling.Encode(offset + 4, value);
+        WriteInt32(offset, len);
+    }
 
-    public static object ReadArray(int offset) => null;
-    public static void WriteArray(int offset, object value) { }
+    // Array Helpers
+    public static object ReadArray(int offset)
+    {
+        int len = ReadInt32(offset);
+        if (len <= 0)
+            return Array.Empty<object>();
 
-    // packed byte array
+        return VariantHandling.Decode(offset + 4);
+    }
+
+
+    public static void WriteArray(int offset, System.Collections.IList value)
+    {
+        object[] arr;
+
+        if (value == null)
+            arr = Array.Empty<object>();
+        else if (value is object[] direct)
+            arr = direct;
+        else
+        {
+            arr = new object[value.Count];
+            value.CopyTo(arr, 0);
+        }
+
+        int len = VariantHandling.Encode(offset + 4, arr);
+        WriteInt32(offset, len);
+    }
+
+
+    // Signal Helpers
+    public static object ReadSignal(int offset)
+    {
+        ulong id = ReadUInt64(offset);
+        string name = ReadString(offset + 8);
+        return new CustomSignal(id, name);
+    }
+
+    public static void WriteSignal(int offset, CustomSignal value)
+    {
+        WriteUInt64(offset, value.TargetId);
+        WriteString(offset + 8, value.Name);
+    }
+
+
+    // Callable Helpers
+    public static void ReadCallable(int offset){
+        ulong id = ReadUInt64(offset);
+        string Method = ReadString(offset + 8);
+    }
+
+    public static void WriteCallable(int offset, CustomCallable value)
+    {
+        WriteUInt64(offset, value.TargetId);
+        WriteString(offset + 8, value.Method);
+    }
+
+    // PackedByteArray Helpers
     public static void WritePackedByteArray(int offset, byte[] values)
     {
         values ??= Array.Empty<byte>();
@@ -579,7 +637,7 @@ public static class Helpers
         return result;
     }
 
-    // packed Vector2 array
+    // Packed Arrays Helpers
     public static void WritePackedVector2Array(int offset, Vector2[] values)
     {
         values ??= Array.Empty<Vector2>();
@@ -608,7 +666,6 @@ public static class Helpers
         return result;
     }
 
-    // packed Vector3 array
     public static void WritePackedVector3Array(int offset, Vector3[] values)
     {
         values ??= Array.Empty<Vector3>();
@@ -637,7 +694,6 @@ public static class Helpers
         return result;
     }
 
-    // packed Color array
     public static void WritePackedColorArray(int offset, Color[] values)
     {
         values ??= Array.Empty<Color>();
@@ -666,7 +722,6 @@ public static class Helpers
         return result;
     }
 
-    // packed Vector4 array
     public static void WritePackedVector4Array(int offset, Vector4[] values)
     {
         values ??= Array.Empty<Vector4>();
@@ -695,18 +750,21 @@ public static class Helpers
         return result;
     }
 
-    // compatibility alias
+    // Float Array Helpers
     public static void WriteFloatArray(int offset, float[] values)
         => WritePackedFloat32Array(offset, values);
-        
-        // Variant ops
-        public static void WriteVariant(int offset, object value)
-        {
-            VariantHandling.Encode(offset, value);
-        }
-        
-        public static object ReadVariant(int offset)
-        {
-            return VariantHandling.Decode(offset);
-        }
+
+    // Variant Helpers
+    public static void WriteVariant(int offset, object value)
+    {
+        VariantHandling.Encode(offset, value);
+    }
+
+    public static object ReadVariant(int offset)
+    {
+        return VariantHandling.Decode(offset);
+    }
+
+
+
 }
